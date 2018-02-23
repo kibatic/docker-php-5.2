@@ -11,6 +11,7 @@ RUN apt-get update && \
         libkrb5-26-heimdal libldap-2.4-2 libp11-kit0 libroken18-heimdal libsasl2-2 \
         libsqlite3-0 libswitch-perl libtasn1-3 libwind0-heimdal mime-support perl \
         perl-modules \
+	iputils-ping vim
     && \
     apt-get clean && \
     rm -Rf /var/lib/apt/lists/* && \
@@ -309,9 +310,9 @@ RUN mkdir /php && \
 COPY php.ini /etc/php/apache2-php5.2/
 COPY php.ini /etc/php/cli-php5.2/
 
-# Enable mailing via ssmtp
+# Enable mailing via msmtp
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ssmtp && \
+    apt-get install -y --no-install-recommends msmtp && \
 	apt-get clean && \
 	rm -r /var/lib/apt/lists/*
 
