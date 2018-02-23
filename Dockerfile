@@ -11,7 +11,7 @@ RUN apt-get update && \
         libkrb5-26-heimdal libldap-2.4-2 libp11-kit0 libroken18-heimdal libsasl2-2 \
         libsqlite3-0 libswitch-perl libtasn1-3 libwind0-heimdal mime-support perl \
         perl-modules \
-	iputils-ping vim
+	iputils-ping vim \
     && \
     apt-get clean && \
     rm -Rf /var/lib/apt/lists/* && \
