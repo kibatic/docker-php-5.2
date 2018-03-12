@@ -310,11 +310,14 @@ RUN mkdir /php && \
 COPY php.ini /etc/php/apache2-php5.2/
 COPY php.ini /etc/php/cli-php5.2/
 
-# Enable mailing via msmtp
+# Enable mailing via msmtp and add locales
 RUN apt-get update && \
     apt-get install -y --no-install-recommends msmtp && \
+    	locales && \
 	apt-get clean && \
 	rm -r /var/lib/apt/lists/*
+	
+RUN locale-gen fr_FR.UTF-8 && update-locale LANG=fr_FR.UTF-8
 
 EXPOSE 80
 
