@@ -312,8 +312,7 @@ COPY php.ini /etc/php/cli-php5.2/
 
 # Enable mailing via msmtp and add locales
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends msmtp && \
-    	locales && \
+    apt-get install -y --no-install-recommends msmtp locales && \
 	apt-get clean && \
 	rm -r /var/lib/apt/lists/*
 	
