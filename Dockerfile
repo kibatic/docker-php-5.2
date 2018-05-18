@@ -316,7 +316,10 @@ RUN apt-get update && \
 	apt-get clean && \
 	rm -r /var/lib/apt/lists/*
 	
-RUN locale-gen fr_FR.UTF-8 && update-locale LANG=fr_FR.UTF-8
+RUN locale-gen fr_FR.UTF-8
+ENV LANG fr_FR.UTF-8
+ENV LANGUAGE fr_FR:en
+ENV LC_ALL fr_FR.UTF-8
 
 EXPOSE 80
 
