@@ -60,8 +60,6 @@ RUN mkdir /php && \
     cd php-5.2.17; \
     wget -c -t 3 -O ./debian_patches_disable_SSLv2_for_openssl_1_0_0.patch https://bugs.php.net/patch-display.php\?bug_id\=54736\&patch\=debian_patches_disable_SSLv2_for_openssl_1_0_0.patch\&revision=1305414559\&download\=1 && \
     patch -p1 -b < debian_patches_disable_SSLv2_for_openssl_1_0_0.patch && \
-    
-    # Build apache module
     ./configure \
         --bindir=/usr/bin \
         --sbindir=/usr/sbin \
@@ -162,8 +160,6 @@ RUN mkdir /php && \
     && \
     make && \
     make install && \
-    
-    # Build cli
     ./configure \
         --bindir=/usr/bin \
         --sbindir=/usr/sbin \
@@ -264,8 +260,6 @@ RUN mkdir /php && \
     make clean && \
     make && \
     make install && \
-
-    # Add extensions
     pecl install Fileinfo && \
     pecl install memcache && \
     cd /php && \
@@ -273,8 +267,6 @@ RUN mkdir /php && \
     tar xzf ZendOptimizer-3.3.3-linux-glibc23-x86_64.tar.gz && \
     mkdir /usr/lib/php5.2/modules && \
     cp ZendOptimizer-3.3.3-linux-glibc23-x86_64/data/5_2_x_comp/ZendOptimizer.so /usr/lib/php5.2/modules/ && \
-
-    # Clean up
     rm -Rf /php && \
     rm -Rf /var/cache/* && \
     rm -Rf /tmp/pear && \
@@ -315,12 +307,18 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends msmtp locales && \
 	apt-get clean && \
 	rm -r /var/lib/apt/lists/*
-	
+
+COPY start.sh /start.sh
+RUN chmod u+x /start.sh
+
 RUN locale-gen fr_FR.UTF-8
 ENV LANG fr_FR.UTF-8
 ENV LANGUAGE fr_FR:en
 ENV LC_ALL fr_FR.UTF-8
 
+RUN mkdir /project
+VOLUME /project
+
 EXPOSE 80
 
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["/start.sh"]
