@@ -308,6 +308,9 @@ RUN apt-get update && \
 	apt-get clean && \
 	rm -r /var/lib/apt/lists/*
 
+RUN a2enmod headers
+RUN a2enmod expires
+
 COPY start.sh /start.sh
 RUN chmod u+x /start.sh
 
